@@ -23,6 +23,10 @@ INVALID_GRID = [[1, 2, 3, 4, 5, 6, 7, 8, 9],
                 [1, 2, 3, 4, 5, 6, 7, 8, 9],
                 [1, 2, 3, 4, 5, 6, 7, 8, 9]]
 
+EXAMPLE_SQUARE = [[1, 2, 3],
+                  [4, 5, 6],
+                  [7, 8, 9]]
+
 VALID_GRID = [[4, 3, 5, 2, 6, 9, 7, 8, 1],
               [6, 8, 2, 5, 7, 1, 4, 9, 3],
               [1, 9, 7, 8, 3, 4, 5, 6, 2],
@@ -43,3 +47,46 @@ def check_sudoku(sudoku_grid):
                 return True
 
 
+def check_rows(grid):
+    for row in grid:
+        if is_valid_row(row) == False:
+            return False
+    return True
+
+
+def is_valid_row(row):
+    required_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    for number in required_numbers:
+        if number not in row:
+            return False
+    return True
+
+
+def check_colums(grid):
+    columns = []
+    for index in range(9):
+        new_column = []
+        for row in grid:
+            new_column.append(row[index])
+        columns.append(new_column)
+    return check_rows(columns)
+
+
+def check_squares(grid_9by9):
+    rows_of_squares = make_squares(grid_9by9)
+    for row_of_squares in rows_of_squares:
+        for square in row_of_squares:
+            if check_square(square) == False:
+                return False
+    return True
+
+def check_square(grid_3by3):
+    total = 0
+    for row in grid_3by3:
+        for cell in row:
+            total += cell
+
+
+            # print check_rows(VALID_GRID)
+print check_sudoku(VALID_GRID)
